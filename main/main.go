@@ -1,10 +1,21 @@
 package main
 
-import (
-	"fmt"
-	"github.com/barta-adrian/gotraining/stringutil"
-)
+import "fmt"
+
+func wrapper() func() int {
+	x := 0
+	fmt.Println("in wrapper", x)
+	return func() int {
+		fmt.Println("in closure", x)
+		x++
+		return x
+	}
+}
 
 func main() {
-	fmt.Println(stringutil.MyName)
+	inter := wrapper()
+
+	fmt.Println(inter())
+	fmt.Println(inter())
+	fmt.Println(inter())
 }
